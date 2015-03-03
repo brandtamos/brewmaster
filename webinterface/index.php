@@ -5,50 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no, minimal-ui">
 <meta charset=utf-8>
 <?php
-include 'functions.php';
-$link = ConnectToDB();
+include_once 'functions.php';
+include_once 'classes.php';
 
-//get temperature data
-$sql = "SELECT ts.ReadingTime, ts.Temperature, (select Temperature from TemperatureSchedule where KeyDate <= ts.ReadingTime order by KeyDate desc limit 1) as GoalTemp FROM TemperatureStatistics ts\n"
-    . " where ts.ReadingTime > DATE_ADD(NOW(), INTERVAL -6 HOUR)";
-$result = mysql_query($sql);
+//$link = ConnectToDB();
 
-//build datapoints for graph from temperature data
-if($result){
-	$dataObject = "data: [";
-	while($row = mysql_fetch_array($result)){
-		$dataObject = $dataObject . "{ y: '" . $row['ReadingTime'] . "', a: " . $row['Temperature'] . ", b: " . $row['GoalTemp'] . "},";
-	}
-	$dataObject = rtrim($dataObject, ",");
-	$dataObject = $dataObject . "]";
-}
+$dataObject = BuildTemperatureDataObject();
+$eventCollection = BuildEventDataObject();
 
-//get power activity data
-$sql = "SELECT Date, Action FROM ActivityLog where Date > DATE_ADD(NOW(), INTERVAL -6 HOUR)";
-$result = mysql_query($sql);
-
-$eventLineColors = "eventLineColors: [\"red\"]"; //this is just here for safety
-
-//build event object for graph
-if($result){
-	$eventObject = "events: [";
-	$firstRecord = true;
-	while($row = mysql_fetch_array($result)){
-		$eventObject = $eventObject . "'" . $row['Date'] . "',";
-		//the first event record determines the color patter for the event lines
-		if($firstRecord == true){
-			if($row['Action'] == "Power on"){
-				$eventLineColors = "eventLineColors: [\"red\", \"black\"]";
-			}
-			else{
-				$eventLineColors = "eventLineColors: [\"black\", \"red\"]";
-			}
-		}
-		$firstRecord = false;
-	}
-	$eventObject = rtrim($eventObject, ",");
-	$eventObject = $eventObject . "]";
-}
 $mysqli = new mysqli("localhost", "brewmaster", "brewmasterpassword", "brewmaster");
 $sql = "CALL GetFridgeDuty()";
 
@@ -84,8 +48,8 @@ $(document).ready(function(){
 	  continuousLine: true,
 	  lineColors: ["blue", "green"],
 	  pointStrokeColors: ["blue", "green"],
-	  <?php echo $eventObject; ?>,
-	  <?php echo $eventLineColors; ?>
+	  <?php echo $eventCollection->EventData; ?>,
+	  <?php echo $eventCollection->EventLineColors; ?>
 	});
 	
 	Morris.Donut({
