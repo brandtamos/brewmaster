@@ -5,12 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no, minimal-ui">
 <meta charset=utf-8>
 <?php
-$link = mysql_connect('localhost', 'brewmaster', 'brewmasterpassword');
-$mysqliconn = mysqli_connect('localhost', 'brewmaster', 'brewmasterpassword', 'brewmaster');
-if (!$link) {
-	die('Could not connect: ' . mysql_error());
-}
-mysql_select_db('brewmaster');
+include 'fuctions.php';
+$link = ConnectToDB;
 
 //get temperature data
 $sql = "SELECT ts.ReadingTime, ts.Temperature, (select Temperature from TemperatureSchedule where KeyDate <= ts.ReadingTime order by KeyDate desc limit 1) as GoalTemp FROM TemperatureStatistics ts\n"
