@@ -72,4 +72,21 @@ function BuildEventDataObject(){
 	
 	return $dataObject;
 }
+
+function BuildDutyObject(){
+	$mysqli = new mysqli("localhost", "brewmaster", "brewmasterpassword", "brewmaster");
+	$sql = "CALL GetFridgeDuty()";
+	$result = $mysqli->query($sql);
+	$dutyDataObject = "";
+	if($result){
+		$dutyDataObject = "data: [";
+		while($row = $result->fetch_object()){
+			$dutyDataObject = $dutyDataObject . "{label: '" . $row->Action . "', value: " . $row->total_seconds . "},";
+		}
+		$dutyDataObject = rtrim($dutyDataObject, ",");
+		$dutyDataObject = $dutyDataObject . "]";
+	}
+	
+	return $dutyDataObject;
+}
 ?>

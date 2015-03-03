@@ -8,24 +8,10 @@
 include_once 'functions.php';
 include_once 'classes.php';
 
-//$link = ConnectToDB();
-
 $dataObject = BuildTemperatureDataObject();
 $eventCollection = BuildEventDataObject();
+$dutyDataObject = BuildDutyObject();
 
-$mysqli = new mysqli("localhost", "brewmaster", "brewmasterpassword", "brewmaster");
-$sql = "CALL GetFridgeDuty()";
-
-$result = $mysqli->query($sql);
-
-if($result){
-	$dutyDataObject = "data: [";
-	while($row = $result->fetch_object()){
-		$dutyDataObject = $dutyDataObject . "{label: '" . $row->Action . "', value: " . $row->total_seconds . "},";
-	}
-	$dutyDataObject = rtrim($dutyDataObject, ",");
-	$dutyDataObject = $dutyDataObject . "]";
-}
 ?>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 
