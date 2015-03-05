@@ -23,6 +23,28 @@ $dutyDataObject = BuildDutyObject();
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script>
 $(document).ready(function(){
+
+	$("#temperatureform").submit(function(e){
+		e.preventDefault();
+		var date = moment($("#temperaturedate").val());
+		var data = {
+			"temp" : $("#temperature").val(),
+			"date" : date.format("YYYY-MM-DD HH:MM:SS")
+		}
+		data = $(this).serialize() + "&" + $.param(data);
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			url: "settemp.php", //Relative or absolute path to response.php file
+			data: data,
+			success: function(data) {
+				alert("Form submitted successfully.");
+			},
+			error: function(data){
+				alert("uh oh, error" + data);
+			}
+			});
+	});
 	Morris.Line({
 	  element: 'temperature-graph',
 	  <?php echo $dataObject; ?>,
@@ -76,14 +98,14 @@ body{
 <div class="container">
   <h3>Set Temperature</h3>
   <p>Set a new temperature for now or some point in the future.</p>
-  <form class="form-inline" role="form">
+  <form class="form-inline" role="form" id="temperatureform">
     <div class="form-group">
       <label for="temperature">Temperature:</label>
       <input type="text" class="form-control" id="temperature" placeholder="Enter temperature">
     </div>
     <div class="form-group">
 		<div class='input-group date' id='datetimepicker1'>
-			<input type='text' class="form-control" />
+			<input type='text' class="form-control" id="temperaturedate"/>
 				<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
 			</span>
 		</div>

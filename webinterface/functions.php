@@ -89,4 +89,11 @@ function BuildDutyObject(){
 	
 	return $dutyDataObject;
 }
+
+function WriteNewTempToDB($temp, $date){
+	$link = ConnectToDB();
+	$sql = "INSERT INTO TemperatureSchedule (KeyDate, Temperature) VALUES ('$date', $temp)"
+	$result = mysql_query($sql);
+	mysql_close($link);
+}
 ?>
