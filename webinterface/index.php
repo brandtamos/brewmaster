@@ -70,55 +70,89 @@ $(document).ready(function(){
 </script>
 <style type="text/css">
 body{
-	padding-top: 35px;
+	padding-top: 60px;
 }
 </style>
 <title>Brewmaster</title>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Brewmaster</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="http://brandtrpi.duckdns.org:9001">Supervisor</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-</nav>
 <div class="container">
-  <h3>Set Temperature</h3>
-  <p>Set a new temperature for now or some point in the future.</p>
-  <form class="form-inline" role="form" id="temperatureform">
-    <div class="form-group">
-      <label for="temperature">Temperature:</label>
-      <input type="text" class="form-control" id="temperature" placeholder="Enter temperature">
-    </div>
-    <div class="form-group">
-		<div class='input-group date' id='datetimepicker1'>
-			<input type='text' class="form-control" id="temperaturedate"/>
-				<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-			</span>
-		</div>
-    </div>
-	<script type="text/javascript">
-		$(function () {
-			$('#datetimepicker1').datetimepicker();
-		});
-	</script>
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
+	<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="#">Brewmaster</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+			  <ul class="nav navbar-nav navbar-right">
+				<li class="active"><a href="#">Home</a></li>
+				<li><a href="http://brandtrpi.duckdns.org:9001">Supervisor</a></li>
+			  </ul>
+			</div><!--/.nav-collapse -->
+	</nav>
 </div>
-  <div id="temperature-graph"></div>
-  <div id="fridge-duty"></div>
+<div class="container">
+	<div class="col-md-6 col-sm-12">
+	  <h3>Set Temperature</h3>
+	  <p>Set a new temperature for now or some point in the future.</p>
+	  <form class="form-inline" role="form" id="temperatureform">
+		<div class="form-group">
+		  <label for="temperature">Temperature:</label>
+		  <input type="text" class="form-control" id="temperature" placeholder="Enter temperature">
+		</div>
+		<div class="form-group">
+			<div class='input-group date' id='datetimepicker1'>
+				<input type='text' class="form-control" id="temperaturedate"/>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+				</span>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(function () {
+				$('#datetimepicker1').datetimepicker();
+			});
+		</script>
+		<button type="submit" class="btn btn-default">Submit</button>
+	  </form>
+	</div>
+	<div id="tempschedule" class="col-md-6 col-sm-12">
+		<table class="table table-striped table-bordered">
+			<tr>
+				<th>Date</th>
+				<th>Temperature</th>
+			</tr>
+			<tr>
+				<td>01/02/03 10:00 AM</td>
+				<td>40</td>
+			</tr>
+			<tr>
+				<td>01/02/03 10:00 AM</td>
+				<td>40</td>
+			</tr>
+			<tr>
+				<td>01/02/03 10:00 AM</td>
+				<td>40</td>
+			</tr>
+			<tr>
+				<td>01/02/03 10:00 AM</td>
+				<td>40</td>
+			</tr>
+			<tr>
+				<td>01/02/03 10:00 AM</td>
+				<td>40</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="container">
+	<div id="temperature-graph"></div>
+</div>
+<div class="container">
+	<div id="fridge-duty"></div>
+</div>
 </body>
 </html>
