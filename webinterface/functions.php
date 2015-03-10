@@ -97,4 +97,20 @@ function WriteNewTempToDB($temp, $date){
 	mysql_close($link);
 }
 
+function GetTemperatureScheduleJson(){
+	$link = ConnectToDB();
+	$sql = "SELECT KeyDate, Temperature FROM TemperatureSchedule";
+	$result = mysql_query($sql);
+	$json = JsonEncodeMysqlResults($result);
+	return $json;
+}
+
+function JsonEncodeMysqlResults($mysqlResults){
+	$rows = array();
+	while($r = mysql_fetch_assoc($mysqlResults)) {
+    	$rows[] = $r;
+	}
+
+	return json_encode($rows);
+}
 ?>
