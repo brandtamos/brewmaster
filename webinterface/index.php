@@ -22,8 +22,36 @@ $dutyDataObject = BuildDutyObject();
 <script src="js/bootstrap-datetimepicker.js"></script>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script>
-$(document).ready(function(){
-
+function BuildTempScheduleTable(tempScheduleData){
+	var table = "<table class=\"table table-striped table-bordered\"><tr><th>Date</th><th>Temperature</th></tr>";
+	for(var i = 0; i< tempScheduleData.length; i++){
+		table = table + "<tr>";
+		table = table + "<td>" + tempScheduleData[i].KeyDate + "</td>";
+		table = table + "<td>" + tempScheduleData[i].Temperature + "</td>";
+		table = table + "</tr>";
+	}
+	table = table + "</table>";
+	return table;
+}
+function GetTemperatureScheduleData(){
+var dataObj = null;
+	$.ajax({
+		type: "GET",
+		dataType: "json",
+		url: "gettempschedule.php", 
+		success: function(data) {
+			dataObj = data;
+			var table = BuildTempScheduleTable(dataObj);
+			return table;
+		},
+		error: function(data){
+			alert("Error getting temperature schedule data");
+		}
+	});
+	
+}
+$(document).ready(function(){ 
+	$("#tempschedule").html = GetTemperatureScheduleData();
 	$("#temperatureform").submit(function(e){
 		e.preventDefault();
 		var date = moment($("#temperaturedate").val());
@@ -43,7 +71,7 @@ $(document).ready(function(){
 			error: function(data){
 				alert("uh oh, error" + data);
 			}
-			});
+		});
 	});
 	Morris.Line({
 	  element: 'temperature-graph',
@@ -120,32 +148,6 @@ body{
 	  </form>
 	</div>
 	<div id="tempschedule" class="col-md-6 col-sm-12">
-		<table class="table table-striped table-bordered">
-			<tr>
-				<th>Date</th>
-				<th>Temperature</th>
-			</tr>
-			<tr>
-				<td>01/02/03 10:00 AM</td>
-				<td>40</td>
-			</tr>
-			<tr>
-				<td>01/02/03 10:00 AM</td>
-				<td>40</td>
-			</tr>
-			<tr>
-				<td>01/02/03 10:00 AM</td>
-				<td>40</td>
-			</tr>
-			<tr>
-				<td>01/02/03 10:00 AM</td>
-				<td>40</td>
-			</tr>
-			<tr>
-				<td>01/02/03 10:00 AM</td>
-				<td>40</td>
-			</tr>
-		</table>
 	</div>
 </div>
 <div class="container">
