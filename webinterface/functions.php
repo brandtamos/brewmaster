@@ -99,7 +99,7 @@ function WriteNewTempToDB($temp, $date){
 
 function GetTemperatureScheduleJson(){
 	$link = ConnectToDB();
-	$sql = "SELECT KeyDate, Temperature FROM TemperatureSchedule";
+	$sql = "SELECT KeyDate, Temperature FROM TemperatureSchedule order by KeyDate asc";
 	$result = mysql_query($sql);
 	$json = JsonEncodeMysqlResults($result);
 	return $json;

@@ -42,7 +42,7 @@ var dataObj = null;
 		success: function(data) {
 			dataObj = data;
 			var table = BuildTempScheduleTable(dataObj);
-			return table;
+			$("#tempschedule").html(table);
 		},
 		error: function(data){
 			alert("Error getting temperature schedule data");
@@ -51,7 +51,8 @@ var dataObj = null;
 	
 }
 $(document).ready(function(){ 
-	$("#tempschedule").html = GetTemperatureScheduleData();
+	GetTemperatureScheduleData();
+	//$("#tempschedule").html = GetTemperatureScheduleData();
 	$("#temperatureform").submit(function(e){
 		e.preventDefault();
 		var date = moment($("#temperaturedate").val());
