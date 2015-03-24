@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 23, 2015 at 04:26 PM
+-- Generation Time: Mar 24, 2015 at 10:24 AM
 -- Server version: 5.5.41
 -- PHP Version: 5.4.36-0+deb7u3
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `brewmaster`
 --
+CREATE DATABASE `brewmaster` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `brewmaster`;
 
 DELIMITER $$
 --
