@@ -58,7 +58,7 @@ $(document).ready(function(){
 		var date = moment($("#temperaturedate").val());
 		var data = {
 			"temp" : $("#temperature").val(),
-			"date" : date.format("YYYY-MM-DD HH:MM:SS")
+			"date" : date.format("YYYY-MM-DD HH:mm:ss")
 		}
 		data = $(this).serialize() + "&" + $.param(data);
 		$.ajax({
